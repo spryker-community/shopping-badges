@@ -4,6 +4,25 @@
     <div class="box">
         {% embed molecule('title-box', 'CustomerPage') with {
             data: {
+                title: 'customer.account.badges' | trans,
+            },
+            embed: {
+                orders: data.orders,
+            },
+        } only %}
+        {% endembed %}
+
+        {% include molecule('badges-box', 'CustomerPage') with {
+            data: {
+                badges: [{"imageUrl":"https://placecats.com/100/100", "title":"Order > 100€", "description": "Place an order over 100€", "progress" : 1, "totalProgress": 1}, {"imageUrl":"https://placecats.com/100/100", "title":"10 Orders Placed", "description": "Place more than 10 separate orders", "progress" : 5, "totalProgress": 10}],
+            }
+
+        } only %}
+
+    </div>
+    <div>
+        {% embed molecule('title-box', 'CustomerPage') with {
+            data: {
                 title: 'customer.account.last_orders' | trans,
             },
             embed: {
@@ -18,7 +37,6 @@
                 {% endif %}
             {% endblock %}
         {% endembed %}
-
         {% include molecule('order-table', 'CustomerPage') with {
             data: {
                 orders: data.orders,

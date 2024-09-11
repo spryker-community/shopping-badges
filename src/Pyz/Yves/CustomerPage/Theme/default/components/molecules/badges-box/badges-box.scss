@@ -1,0 +1,20 @@
+@mixin customer-page-badges-box($name: '.badges-box') {
+    #{$name} {
+        &__figure {
+            position: relative;
+            display: inline-block;
+        }
+        &__imgGray {
+            filter: grayscale(100%);
+            position: absolute;
+        }
+
+        &__imgProgress {
+            position: absolute;
+        }
+
+        @content;
+    }
+}
+
+@include customer-page-badges-box();

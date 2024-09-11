@@ -16,12 +16,13 @@
             {% for badge in data.badges %}
                     <td class="transform-cell transform-cell--spacing-top">
                         <figure class="{{ config.name }}__figure">
-                            {#<img class="{{ config.name }}__imgGray" src="{{ badge.imageUrl }}"/>#}
+                            {# Todo: Add a grayed out image for the badge when it is not yet achieved
+                                <img class="{{ config.name }}__imgGray" src="{{ badge.imageUrl }}"/>
+                            #}
                             <img alt="reward icon" class="{{ config.name }}__imgProgress" src="{{ badge.imageUrl }}"/>
                             <figcaption><h5>{{ badge.title }} ({{ badge.progress }}/{{ badge.totalProgress }})</h5>{{ badge.description }}</figcaption>
                         </figure>
                     </td>
-
             {% endfor %}
             </tr>
             </tbody>

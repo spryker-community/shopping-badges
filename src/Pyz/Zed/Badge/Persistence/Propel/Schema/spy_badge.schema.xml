@@ -17,7 +17,7 @@
         <column name="fk_customer" required="true" type="INTEGER"/>
         <column name="fk_badge" type="INTEGER" required="true"/>
         <column name="current_amount" type="INTEGER" default="NULL"/>
-        <column name="is_achieved" type="BOOLEAN" default="true"/>
+        <column name="is_achieved" type="BOOLEAN" default="false"/>
 
         <foreign-key name="pyz_customer_badge-fk_customer" foreignTable="spy_customer" phpName="Customer" refPhpName="CustomerBadge" onDelete="CASCADE">
             <reference foreign="id_customer" local="fk_customer"/>

@@ -2,7 +2,7 @@
 Created by team ***Gamificators***.
 
 ## Short Project Description
-TODO
+This project explores the use of gamification with the Spryker Demo Shop. By incorporating game-like elements such as badges we aimed for a more fun & rewarding customer journey.
 
 ## 📹 Team Demo
 TODO
@@ -21,9 +21,9 @@ TODO
     docker/sdk bootstrap deploy.dev.yml
     ```
 1. Start the project
- ```php
+    ```php
         docker/sdk up
- ```
+    ```
 
 ## Capabilities:
 TODO

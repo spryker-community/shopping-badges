@@ -12,7 +12,11 @@ namespace Pyz\Zed\Badge\Persistence;
 use Generated\Shared\Transfer\BadgeCollectionTransfer;
 use Generated\Shared\Transfer\BadgeCriteriaTransfer;
 use Generated\Shared\Transfer\BadgeTransfer;
+use Generated\Shared\Transfer\CustomerBadgeCollectionTransfer;
+use Generated\Shared\Transfer\CustomerBadgeCriteriaTransfer;
+use Generated\Shared\Transfer\CustomerBadgeTransfer;
 use Orm\Zed\Badge\Persistence\PyzBadgeQuery;
+use Orm\Zed\Badge\Persistence\PyzCustomerBadgeQuery;
 use Propel\Runtime\ActiveQuery\Criteria;
 
 /**
@@ -49,6 +53,45 @@ class BadgeRepository implements BadgeRepositoryInterface
     }
 
     /**
+     * @param \Generated\Shared\Transfer\CustomerBadgeCriteriaTransfer $customerBadgeCriteriaTransfer
+     *
+     * @return \Generated\Shared\Transfer\CustomerBadgeCollectionTransfer
+     */
+    public function getCustomerBadges(CustomerBadgeCriteriaTransfer $customerBadgeCriteriaTransfer): CustomerBadgeCollectionTransfer
+    {
+        $customerBadgeQuery = $this->applyCustomerBadgeFilters(
+            $this->getFactory()->getCustomerBadgePropelQuery(),
+            $customerBadgeCriteriaTransfer,
+        );
+
+        $customerBadgeEntities = $customerBadgeQuery->find();
+        $customerBadgeCollectionTransfer = new CustomerBadgeCollectionTransfer();
+
+        if ($customerBadgeEntities->count() === 0) {
+            return $customerBadgeCollectionTransfer;
+        }
+
+        foreach ($customerBadgeEntities as $customerBadgeEntity) {
+            $customerBadgeTransfer = (new CustomerBadgeTransfer())->fromArray($customerBadgeEntity->toArray(), true);
+            $badgeEntity = $customerBadgeEntity->getBadge();
+            $customerBadgeTransfer->setIdBadge($customerBadgeEntity->getFkBadge());
+            $customerBadgeTransfer->setIdCustomer($customerBadgeEntity->getFkCustomer());
+            $customerBadgeTransfer->setAmount($customerBadgeEntity->getCurrentAmount());
+            $customerBadgeTransfer->setTargetAmount($badgeEntity->getAmount());
+            $customerBadgeTransfer->setTitle($badgeEntity->getTitle());
+            $customerBadgeTransfer->setDescription($badgeEntity->getDescription());
+            $customerBadgeTransfer->setIsActive($badgeEntity->getIsActive());
+            $customerBadgeTransfer->setImageUrl($badgeEntity->getImageUrl());
+            $customerBadgeTransfer->setType($badgeEntity->getType());
+            $customerBadgeCollectionTransfer->addCustomerBadge(
+                $customerBadgeTransfer,
+            );
+        }
+
+        return $customerBadgeCollectionTransfer;
+    }
+
+    /**
      * @param \Orm\Zed\Badge\Persistence\PyzBadgeQuery $badgeQuery
      * @param \Generated\Shared\Transfer\BadgeCriteriaTransfer $badgeCriteriaTransfer
      *
@@ -67,5 +110,16 @@ class BadgeRepository implements BadgeRepositoryInterface
         }
 
         return $badgeQuery;
+    }
+
+    private function applyCustomerBadgeFilters(
+        PyzCustomerBadgeQuery $getCustomerBadgePropelQuery,
+        CustomerBadgeCriteriaTransfer $customerBadgeCriteriaTransfer
+    ): PyzCustomerBadgeQuery {
+        if ($customerBadgeCriteriaTransfer->getIdCustomer()) {
+            $getCustomerBadgePropelQuery->filterByFkCustomer($customerBadgeCriteriaTransfer->getIdCustomer());
+        }
+
+        return $getCustomerBadgePropelQuery;
     }
 }

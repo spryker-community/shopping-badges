@@ -11,6 +11,8 @@ namespace Pyz\Zed\Badge\Business\Reader;
 
 use Generated\Shared\Transfer\BadgeCollectionTransfer;
 use Generated\Shared\Transfer\BadgeCriteriaTransfer;
+use Generated\Shared\Transfer\CustomerBadgeCollectionTransfer;
+use Generated\Shared\Transfer\CustomerBadgeCriteriaTransfer;
 use Pyz\Zed\Badge\Persistence\BadgeRepositoryInterface;
 
 class Reader implements ReaderInterface
@@ -31,5 +33,15 @@ class Reader implements ReaderInterface
     public function get(BadgeCriteriaTransfer $badgeCriteriaTransfer): BadgeCollectionTransfer
     {
         return $this->badgeRepository->get($badgeCriteriaTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerBadgeCriteriaTransfer $customerBadgeCriteriaTransfer
+     *
+     * @return \Generated\Shared\Transfer\CustomerBadgeCollectionTransfer
+     */
+    public function getCustomerBadges(CustomerBadgeCriteriaTransfer $customerBadgeCriteriaTransfer): CustomerBadgeCollectionTransfer
+    {
+        return $this->badgeRepository->getCustomerBadges($customerBadgeCriteriaTransfer);
     }
 }

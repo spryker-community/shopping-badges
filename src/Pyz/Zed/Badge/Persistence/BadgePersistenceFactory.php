@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Pyz\Zed\Badge\Persistence;
 
 use Orm\Zed\Badge\Persistence\PyzBadgeQuery;
+use Orm\Zed\Badge\Persistence\PyzCustomerBadgeQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
 /**
@@ -24,5 +25,12 @@ class BadgePersistenceFactory extends AbstractPersistenceFactory
     public function getBadgePropelQuery(): PyzBadgeQuery
     {
         return PyzBadgeQuery::create();
+    }
+    /**
+     * @return \Orm\Zed\Badge\Persistence\PyzCustomerBadgeQuery
+     */
+    public function getCustomerBadgePropelQuery(): PyzCustomerBadgeQuery
+    {
+        return PyzCustomerBadgeQuery::create();
     }
 }

@@ -7,6 +7,7 @@
 
 namespace Pyz\Zed\Checkout;
 
+use BadgeCheckCheckoutPostSaveHookPlugin;
 use Spryker\Zed\Availability\Communication\Plugin\ProductsAvailableCheckoutPreConditionPlugin;
 use Spryker\Zed\CartNote\Communication\Plugin\Checkout\CartNoteSaverPlugin;
 use Spryker\Zed\Checkout\CheckoutDependencyProvider as SprykerCheckoutDependencyProvider;
@@ -117,6 +118,7 @@ class CheckoutDependencyProvider extends SprykerCheckoutDependencyProvider
             new DummyPaymentCheckoutPostSavePlugin(),
             new SendEmailToGiftCardUser(), #GiftCardFeature
             new PaymentAuthorizationCheckoutPostSavePlugin(),
+            new BadgeCheckCheckoutPostSaveHookPlugin(),
         ];
     }
 

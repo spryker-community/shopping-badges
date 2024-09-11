@@ -11,6 +11,8 @@ namespace Pyz\Zed\Badge\Persistence;
 
 use Generated\Shared\Transfer\BadgeCollectionTransfer;
 use Generated\Shared\Transfer\BadgeCriteriaTransfer;
+use Generated\Shared\Transfer\CustomerBadgeCollectionTransfer;
+use Generated\Shared\Transfer\CustomerBadgeCriteriaTransfer;
 
 interface BadgeRepositoryInterface
 {
@@ -20,4 +22,11 @@ interface BadgeRepositoryInterface
      * @return \Generated\Shared\Transfer\BadgeCollectionTransfer
      */
     public function get(BadgeCriteriaTransfer $badgeCriteriaTransfer): BadgeCollectionTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerBadgeCriteriaTransfer $customerBadgeCriteriaTransfer
+     *
+     * @return \Generated\Shared\Transfer\CustomerBadgeCollectionTransfer
+     */
+    public function getCustomerBadges(CustomerBadgeCriteriaTransfer $customerBadgeCriteriaTransfer): CustomerBadgeCollectionTransfer;
 }

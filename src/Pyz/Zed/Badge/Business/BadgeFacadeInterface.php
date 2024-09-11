@@ -9,8 +9,11 @@ declare(strict_types=1);
 
 namespace Pyz\Zed\Badge\Business;
 
+use Generated\Shared\Transfer\BadgeCheckCriteriaTransfer;
 use Generated\Shared\Transfer\BadgeCollectionTransfer;
 use Generated\Shared\Transfer\BadgeCriteriaTransfer;
+use Generated\Shared\Transfer\CustomerBadgeCollectionTransfer;
+use Generated\Shared\Transfer\CustomerBadgeCriteriaTransfer;
 
 interface BadgeFacadeInterface
 {
@@ -20,4 +23,18 @@ interface BadgeFacadeInterface
      * @return \Generated\Shared\Transfer\BadgeCollectionTransfer
      */
     public function get(BadgeCriteriaTransfer $badgeCriteriaTransfer): BadgeCollectionTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerBadgeCriteriaTransfer $customerBadgeCriteriaTransfer
+     *
+     * @return \Generated\Shared\Transfer\CustomerBadgeCollectionTransfer
+     */
+    public function getCustomerBadges(CustomerBadgeCriteriaTransfer $customerBadgeCriteriaTransfer): CustomerBadgeCollectionTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\BadgeCheckCriteriaTransfer $badgeCheckCriteriaTransfer
+     *
+     * @return void
+     */
+    public function checkBadges(BadgeCheckCriteriaTransfer $badgeCheckCriteriaTransfer): void;
 }

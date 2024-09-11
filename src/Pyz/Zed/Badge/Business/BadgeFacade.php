@@ -14,8 +14,11 @@ declare(strict_types=1);
 
 namespace Pyz\Zed\Badge\Business;
 
+use Generated\Shared\Transfer\BadgeCheckCriteriaTransfer;
 use Generated\Shared\Transfer\BadgeCollectionTransfer;
 use Generated\Shared\Transfer\BadgeCriteriaTransfer;
+use Generated\Shared\Transfer\CustomerBadgeCollectionTransfer;
+use Generated\Shared\Transfer\CustomerBadgeCriteriaTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
@@ -33,5 +36,25 @@ class BadgeFacade extends AbstractFacade implements BadgeFacadeInterface
     public function get(BadgeCriteriaTransfer $badgeCriteriaTransfer): BadgeCollectionTransfer
     {
         return $this->getFactory()->createBadgeReader()->get($badgeCriteriaTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\BadgeCheckCriteriaTransfer $badgeCheckCriteriaTransfer
+     *
+     * @return void
+     */
+    public function checkBadges(BadgeCheckCriteriaTransfer $badgeCheckCriteriaTransfer): void
+    {
+        $this->getFactory()->createBadgeChecker()->checkBadges($badgeCheckCriteriaTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerBadgeCriteriaTransfer $customerBadgeCriteriaTransfer
+     *
+     * @return \Generated\Shared\Transfer\CustomerBadgeCollectionTransfer
+     */
+    public function getCustomerBadges(CustomerBadgeCriteriaTransfer $customerBadgeCriteriaTransfer): CustomerBadgeCollectionTransfer
+    {
+        return $this->getFactory()->createBadgeReader()->getCustomerBadges($customerBadgeCriteriaTransfer);
     }
 }

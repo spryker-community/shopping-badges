@@ -11,6 +11,7 @@ namespace Pyz\Zed\Badge\Business;
 
 use Pyz\Zed\Badge\Business\Assigner\Assigner;
 use Pyz\Zed\Badge\Business\Assigner\AssignerInterface;
+use Pyz\Zed\Badge\Business\Checker\BadgeChecker;
 use Pyz\Zed\Badge\Business\Deleter\Deleter;
 use Pyz\Zed\Badge\Business\Deleter\DeleterInterface;
 use Pyz\Zed\Badge\Business\Reader\Reader;
@@ -55,5 +56,13 @@ class BadgeBusinessFactory extends AbstractBusinessFactory
     public function createAssigner(): AssignerInterface
     {
         return new Assigner();
+    }
+
+    /**
+     * @return \Pyz\Zed\Badge\Business\Checker\BadgeChecker
+     */
+    public function createBadgeChecker(): BadgeChecker
+    {
+        return new BadgeChecker();
     }
 }

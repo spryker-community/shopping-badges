@@ -40,13 +40,9 @@ class BadgeRepository implements BadgeRepositoryInterface
         }
 
         foreach ($badgeEntities as $badgeEntity) {
-            $badgeTransfer = (new BadgeTransfer())->fromArray($badgeEntity->toArray(), true);
-            if ($badgeEntity->getCategoryIds()) {
-                $badgeTransfer->setCategoryIds(
-                    explode(',', $badgeEntity->getCategoryIds()),
-                );
-            }
-            $badgeCollectionTransfer->addBadge($badgeTransfer);
+            $badgeCollectionTransfer->addBadge(
+                (new BadgeTransfer())->fromArray($badgeEntity->toArray(), true),
+            );
         }
 
         return $badgeCollectionTransfer;
@@ -68,16 +64,6 @@ class BadgeRepository implements BadgeRepositoryInterface
 
         if ($badgeCriteriaTransfer->getIsActive() !== null) {
             $badgeQuery->filterByIsActive($badgeCriteriaTransfer->getIsActive());
-        }
-
-        if ($badgeCriteriaTransfer->getFromDate()) {
-            // TODO: apply correct rule
-            $badgeQuery->filterByFromDate($badgeCriteriaTransfer->getFromDate());
-        }
-
-        if ($badgeCriteriaTransfer->getToDate()) {
-            // TODO: apply correct rule
-            $badgeQuery->filterByFromDate($badgeCriteriaTransfer->getToDate());
         }
 
         return $badgeQuery;

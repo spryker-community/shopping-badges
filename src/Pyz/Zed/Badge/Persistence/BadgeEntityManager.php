@@ -9,9 +9,36 @@ declare(strict_types=1);
 
 namespace Pyz\Zed\Badge\Persistence;
 
+use Generated\Shared\Transfer\CustomerBadgeTransfer;
+
 /**
  * @method \Pyz\Zed\Badge\Persistence\BadgePersistenceFactory getFactory()
  */
 class BadgeEntityManager implements BadgeEntityManagerInterface
 {
+    /**
+     * @param \Generated\Shared\Transfer\CustomerBadgeTransfer $customerBadgeTransfer
+     *
+     * @return \Generated\Shared\Transfer\CustomerBadgeTransfer
+     */
+    public function saveCustomerBadge(CustomerBadgeTransfer $customerBadgeTransfer): CustomerBadgeTransfer
+    {
+        $customerBadgeEntity = $this->getFactory()
+            ->getCustomerBadgePropelQuery()
+            ->filterByIdCustomerBadge($customerBadgeTransfer->getIdCustomerBadge())
+            ->findOneOrCreate();
+
+        $customerBadgeEntity->setFkCustomer($customerBadgeTransfer->getIdCustomer())
+            ->setFkBadge($customerBadgeTransfer->getIdBadge())
+            ->setCurrentAmount($customerBadgeTransfer->getAmount())
+            ->setIsAchieved($customerBadgeTransfer->getIsAchieved());
+
+        if ($customerBadgeEntity->isModified()) {
+            $customerBadgeEntity->save();
+        }
+
+        $customerBadgeTransfer->setIdCustomerBadge($customerBadgeEntity->getIdCustomerBadge());
+
+        return $customerBadgeTransfer;
+    }
 }

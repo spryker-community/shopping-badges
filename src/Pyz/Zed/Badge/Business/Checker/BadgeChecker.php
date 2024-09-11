@@ -10,15 +10,19 @@ use Generated\Shared\Transfer\BadgeCriteriaTransfer;
 use Generated\Shared\Transfer\CustomerBadgeCollectionTransfer;
 use Generated\Shared\Transfer\CustomerBadgeCriteriaTransfer;
 use Generated\Shared\Transfer\CustomerBadgeTransfer;
+use Pyz\Zed\Badge\Business\Writer\WriterInterface;
 use Pyz\Zed\Badge\Persistence\BadgeRepositoryInterface;
 
 class BadgeChecker
 {
     /**
      * @param \Pyz\Zed\Badge\Persistence\BadgeRepositoryInterface $badgeRepository
+     * @param array<\Pyz\Zed\Badge\Communication\Plugin\OrdersAmountBadgeTypePlugin> $badgeTypePlugins
      */
     public function __construct(
         private readonly BadgeRepositoryInterface $badgeRepository,
+        private readonly array $badgeTypePlugins,
+        private readonly WriterInterface $writer,
     ) {
     }
 
@@ -120,7 +124,34 @@ class BadgeChecker
         }
     }
 
-    private function checkAndSave(CustomerBadgeCollectionTransfer $customerBadgeToProcessCollectionTransfer)
+    /**
+     * @param \Generated\Shared\Transfer\CustomerBadgeCollectionTransfer $customerBadgeToProcessCollectionTransfer
+     *
+     * @return void
+     */
+    private function checkAndSave(CustomerBadgeCollectionTransfer $customerBadgeToProcessCollectionTransfer): void
     {
+        foreach ($customerBadgeToProcessCollectionTransfer->getCustomerBadges() as $customerBadgeTransfer) {
+            $customerBadgeTransfer = $this->processCustomerBadge($customerBadgeTransfer);
+            $this->writer->saveCustomerBadge($customerBadgeTransfer);
+        }
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerBadgeTransfer $customerBadgeTransfer
+     *
+     * @return \Generated\Shared\Transfer\CustomerBadgeTransfer
+     */
+    private function processCustomerBadge(CustomerBadgeTransfer $customerBadgeTransfer): CustomerBadgeTransfer
+    {
+        foreach ($this->badgeTypePlugins as $badgeTypePlugin) {
+            if ($customerBadgeTransfer->getType() !== $badgeTypePlugin->getName()) {
+                continue;
+            }
+
+            return $badgeTypePlugin->checkCustomerBadge($customerBadgeTransfer);
+        }
+
+        return $customerBadgeTransfer;
     }
 }

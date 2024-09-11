@@ -14,6 +14,7 @@ use Generated\Shared\Transfer\BadgeCollectionTransfer;
 use Generated\Shared\Transfer\BadgeCriteriaTransfer;
 use Generated\Shared\Transfer\CustomerBadgeCollectionTransfer;
 use Generated\Shared\Transfer\CustomerBadgeCriteriaTransfer;
+use Generated\Shared\Transfer\CustomerBadgeTransfer;
 
 interface BadgeFacadeInterface
 {
@@ -37,4 +38,11 @@ interface BadgeFacadeInterface
      * @return void
      */
     public function checkBadges(BadgeCheckCriteriaTransfer $badgeCheckCriteriaTransfer): void;
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerBadgeTransfer $customerBadgeTransfer
+     *
+     * @return \Generated\Shared\Transfer\CustomerBadgeTransfer
+     */
+    public function checkCustomerBadgeOrdersAmountType(CustomerBadgeTransfer $customerBadgeTransfer): CustomerBadgeTransfer;
 }

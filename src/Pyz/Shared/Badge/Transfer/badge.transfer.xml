@@ -12,6 +12,7 @@
     </transfer>
 
     <transfer name="CustomerBadge">
+        <property name="idCustomerBadge" type="int"/>
         <property name="idBadge" type="int"/>
         <property name="idCustomer" type="int"/>
         <property name="title" type="string"/>

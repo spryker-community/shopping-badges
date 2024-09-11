@@ -19,6 +19,7 @@ use Generated\Shared\Transfer\BadgeCollectionTransfer;
 use Generated\Shared\Transfer\BadgeCriteriaTransfer;
 use Generated\Shared\Transfer\CustomerBadgeCollectionTransfer;
 use Generated\Shared\Transfer\CustomerBadgeCriteriaTransfer;
+use Generated\Shared\Transfer\CustomerBadgeTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
@@ -56,5 +57,15 @@ class BadgeFacade extends AbstractFacade implements BadgeFacadeInterface
     public function getCustomerBadges(CustomerBadgeCriteriaTransfer $customerBadgeCriteriaTransfer): CustomerBadgeCollectionTransfer
     {
         return $this->getFactory()->createBadgeReader()->getCustomerBadges($customerBadgeCriteriaTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\CustomerBadgeTransfer $customerBadgeTransfer
+     *
+     * @return \Generated\Shared\Transfer\CustomerBadgeTransfer
+     */
+    public function checkCustomerBadgeOrdersAmountType(CustomerBadgeTransfer $customerBadgeTransfer): CustomerBadgeTransfer
+    {
+        return $this->getFactory()->createCustomerOrderChecker()->checkCustomerBadgeOrdersAmountType($customerBadgeTransfer);
     }
 }

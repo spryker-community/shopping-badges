@@ -74,6 +74,7 @@ class BadgeRepository implements BadgeRepositoryInterface
         foreach ($customerBadgeEntities as $customerBadgeEntity) {
             $customerBadgeTransfer = (new CustomerBadgeTransfer())->fromArray($customerBadgeEntity->toArray(), true);
             $badgeEntity = $customerBadgeEntity->getBadge();
+            $customerBadgeTransfer->setIdCustomerBadge($customerBadgeEntity->getIdCustomerBadge());
             $customerBadgeTransfer->setIdBadge($customerBadgeEntity->getFkBadge());
             $customerBadgeTransfer->setIdCustomer($customerBadgeEntity->getFkCustomer());
             $customerBadgeTransfer->setAmount($customerBadgeEntity->getCurrentAmount());

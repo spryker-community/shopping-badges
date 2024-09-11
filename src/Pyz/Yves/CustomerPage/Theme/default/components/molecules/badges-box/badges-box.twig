@@ -1,0 +1,30 @@
+{% define config = {
+    name: 'badges-box',
+} %}
+
+{% define data = {
+
+} %}
+
+{% block body %}
+    {% if data.badges is empty %}
+        <p>{{ 'customer.account.no_badges' | trans }}</p>
+    {% else %}
+        <table class="table table--expand table--responsive">
+            <tbody>
+            <tr class="table__tr table__tr--with-border">
+            {% for badge in data.badges %}
+                    <td class="transform-cell transform-cell--spacing-top">
+                        <figure class="{{ config.name }}__figure">
+                            {#<img class="{{ config.name }}__imgGray" src="{{ badge.imageUrl }}"/>#}
+                            <img alt="reward icon" class="{{ config.name }}__imgProgress" src="{{ badge.imageUrl }}"/>
+                            <figcaption><h5>{{ badge.title }} ({{ badge.progress }}/{{ badge.totalProgress }})</h5>{{ badge.description }}</figcaption>
+                        </figure>
+                    </td>
+
+            {% endfor %}
+            </tr>
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

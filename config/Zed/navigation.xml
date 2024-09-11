@@ -367,6 +367,13 @@
         <title>Administration</title>
         <icon>fa-users-cog</icon>
         <pages>
+            <badges>
+                <label>Badges</label>
+                <title>Badges</title>
+                <bundle>badge-gui</bundle>
+                <controller>list</controller>
+                <action>index</action>
+            </badges>
             <stores>
                 <label>Stores</label>
                 <title>Stores</title>

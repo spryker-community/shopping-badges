@@ -7,7 +7,7 @@
 
 namespace Pyz\Zed\Checkout;
 
-use BadgeCheckCheckoutPostSaveHookPlugin;
+use Pyz\Zed\Badge\Communication\Plugin\BadgeCheckCheckoutPostSaveHookPlugin;
 use Spryker\Zed\Availability\Communication\Plugin\ProductsAvailableCheckoutPreConditionPlugin;
 use Spryker\Zed\CartNote\Communication\Plugin\Checkout\CartNoteSaverPlugin;
 use Spryker\Zed\Checkout\CheckoutDependencyProvider as SprykerCheckoutDependencyProvider;

@@ -24,6 +24,7 @@ class BadgeChecker
         private readonly array $badgeTypePlugins,
         private readonly WriterInterface $writer,
     ) {
+        $test = 1;
     }
 
     /**
@@ -64,6 +65,8 @@ class BadgeChecker
         $customerBadgeIds = [];
         foreach ($customerBadgeCollectionTransfer->getCustomerBadges() as $customerBadgeTransfer) {
             if ($customerBadgeTransfer->getIsAchieved()) {
+                $customerBadgeIds[] = $customerBadgeTransfer->getIdBadge();
+
                 continue;
             }
             $this->updateCustomerBadge($customerBadgeTransfer, $badgeCollectionTransfer);
@@ -87,6 +90,8 @@ class BadgeChecker
                     ->setType($badgeTransfer->getType())
             );
         }
+
+        return $customerBadgeToProcessCollectionTransfer;
     }
 
     /**

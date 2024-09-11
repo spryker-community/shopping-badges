@@ -10,11 +10,12 @@ declare(strict_types=1);
 namespace Pyz\Zed\Badge\Persistence;
 
 use Generated\Shared\Transfer\CustomerBadgeTransfer;
+use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**
  * @method \Pyz\Zed\Badge\Persistence\BadgePersistenceFactory getFactory()
  */
-class BadgeEntityManager implements BadgeEntityManagerInterface
+class BadgeEntityManager extends AbstractEntityManager implements BadgeEntityManagerInterface
 {
     /**
      * @param \Generated\Shared\Transfer\CustomerBadgeTransfer $customerBadgeTransfer

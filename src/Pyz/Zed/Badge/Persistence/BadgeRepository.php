@@ -18,11 +18,12 @@ use Generated\Shared\Transfer\CustomerBadgeTransfer;
 use Orm\Zed\Badge\Persistence\PyzBadgeQuery;
 use Orm\Zed\Badge\Persistence\PyzCustomerBadgeQuery;
 use Propel\Runtime\ActiveQuery\Criteria;
+use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 
 /**
  * @method \Pyz\Zed\Badge\Persistence\BadgePersistenceFactory getFactory()
  */
-class BadgeRepository implements BadgeRepositoryInterface
+class BadgeRepository extends AbstractRepository implements BadgeRepositoryInterface
 {
     /**
      * @param \Generated\Shared\Transfer\BadgeCriteriaTransfer $badgeCriteriaTransfer

@@ -33,9 +33,11 @@ class BadgeDependencyProvider extends  AbstractBundleDependencyProvider
 
     private function addBadgeTypePlugins(Container $container): Container
     {
-        $container->set(self::PLUGINS_BADGE_TYPE, static function (): array {
+        $container->set(self::PLUGINS_BADGE_TYPE, function (): array {
             return $this->getBadgeTypePlugins();
         });
+
+        return  $container;
     }
 
     /**
@@ -53,5 +55,7 @@ class BadgeDependencyProvider extends  AbstractBundleDependencyProvider
         $container->set(self::FACADE_SALES, static function (Container $container): SalesFacadeInterface {
             return $container->getLocator()->sales()->facade();
         });
+
+       return  $container;
     }
 }
